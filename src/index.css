@@ -1,9 +1,5 @@
 @import "tailwindcss";
 
-/* Tailwind CSS v4 */
-/* @tailwind-import */
-
-/* Tailwind v4 Theme Configuration */
 @theme {
   --color-retro-purple: #6b7280;
   --color-retro-dark: #1f2937;
@@ -19,7 +15,6 @@
   --shadow-neon-strong: 0 0 10px #ffffff, 0 0 20px #ffffff, 0 0 30px #ffffff;
 }
 
-/* Global styles for smooth scrolling and retro feel */
 html {
   scroll-behavior: smooth;
 }
@@ -31,12 +26,10 @@ body {
   overflow-x: hidden;
 }
 
-/* Ensure animations work properly */
 * {
   box-sizing: border-box;
 }
 
-/* Add subtle background pattern for professional feel */
 body::before {
   content: '';
   position: fixed;
@@ -51,19 +44,16 @@ body::before {
   z-index: -1;
 }
 
-/* Mobile improvements */
 @media (max-width: 768px) {
   body::before {
     background-size: 15px 15px;
   }
 }
 
-/* Better touch targets for mobile */
 * {
   -webkit-tap-highlight-color: rgba(75, 85, 99, 0.3);
 }
 
-/* Improve button and link touch areas on mobile */
 a, button {
   min-height: 44px;
   display: inline-flex;
@@ -71,7 +61,6 @@ a, button {
   justify-content: center;
 }
 
-/* Typing Animation */
 .typing-text {
   position: relative;
   min-height: 2.5em;
@@ -84,7 +73,6 @@ a, button {
   margin-left: 2px;
 }
 
-/* Mobile cursor adjustments */
 @media (max-width: 640px) {
   .typing-text {
     min-height: 2em;

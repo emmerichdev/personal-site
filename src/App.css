@@ -1,7 +1,4 @@
-/* Custom utility classes for Tailwind v4 */
-
 @layer utilities {
-  /* Animations */
   @keyframes typing {
     from { width: 0 }
     to { width: 100% }
@@ -32,7 +29,6 @@
     }
   }
 
-  /* Animation utility classes */
   .typing-animation {
     overflow: hidden;
     border-right: 3px solid var(--color-retro-accent);
@@ -74,7 +70,6 @@
     left: 100%;
   }
 
-  /* Custom shadow utilities */
   .shadow-neon {
     box-shadow: var(--shadow-neon);
   }
@@ -84,7 +79,6 @@
   }
 }
 
-/* Scrollbar styling */
 ::-webkit-scrollbar {
   width: 8px;
 }

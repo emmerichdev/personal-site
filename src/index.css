@@ -5,18 +5,18 @@
 
 /* Tailwind v4 Theme Configuration */
 @theme {
-  --color-retro-purple: #8B5CF6;
-  --color-retro-dark: #1A0B33;
-  --color-retro-light: #E9D5FF;
-  --color-retro-accent: #A855F7;
-  --color-retro-bg: #0F0519;
-  --color-retro-card: #2D1B69;
-  --color-retro-glow: #C084FC;
+  --color-retro-purple: #6b7280;
+  --color-retro-dark: #1f2937;
+  --color-retro-light: #f8fafc;
+  --color-retro-accent: #4b5563;
+  --color-retro-bg: #0d1117;
+  --color-retro-card: #1a1a1a;
+  --color-retro-glow: #ffffff;
   
   --font-family-retro: "Courier New", monospace;
   
-  --shadow-neon: 0 0 5px #A855F7, 0 0 10px #A855F7, 0 0 15px #A855F7;
-  --shadow-neon-strong: 0 0 10px #C084FC, 0 0 20px #C084FC, 0 0 30px #C084FC;
+  --shadow-neon: 0 0 5px #4b5563, 0 0 10px #4b5563, 0 0 15px #4b5563;
+  --shadow-neon-strong: 0 0 10px #ffffff, 0 0 20px #ffffff, 0 0 30px #ffffff;
 }
 
 /* Global styles for smooth scrolling and retro feel */
@@ -36,7 +36,7 @@ body {
   box-sizing: border-box;
 }
 
-/* Add subtle background pattern for retro feel */
+/* Add subtle background pattern for professional feel */
 body::before {
   content: '';
   position: fixed;
@@ -45,7 +45,7 @@ body::before {
   width: 100%;
   height: 100%;
   background-image: 
-    radial-gradient(circle at 1px 1px, rgba(139, 92, 246, 0.1) 1px, transparent 0);
+    radial-gradient(circle at 1px 1px, rgba(107, 114, 128, 0.1) 1px, transparent 0);
   background-size: 20px 20px;
   pointer-events: none;
   z-index: -1;
@@ -60,7 +60,7 @@ body::before {
 
 /* Better touch targets for mobile */
 * {
-  -webkit-tap-highlight-color: rgba(168, 85, 247, 0.3);
+  -webkit-tap-highlight-color: rgba(75, 85, 99, 0.3);
 }
 
 /* Improve button and link touch areas on mobile */

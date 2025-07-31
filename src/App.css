@@ -1,0 +1,103 @@
+/* Custom utility classes for Tailwind v4 */
+
+@layer utilities {
+  /* Animations */
+  @keyframes typing {
+    from { width: 0 }
+    to { width: 100% }
+  }
+
+  @keyframes blink {
+    50% { border-color: transparent }
+  }
+
+  @keyframes glow-pulse {
+    0%, 100% { text-shadow: var(--shadow-neon); }
+    50% { text-shadow: var(--shadow-neon-strong); }
+  }
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-10px); }
+  }
+
+  @keyframes slide-up {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* Animation utility classes */
+  .typing-animation {
+    overflow: hidden;
+    border-right: 3px solid var(--color-retro-accent);
+    white-space: nowrap;
+    animation: typing 3s steps(30, end), blink 1s step-end infinite;
+  }
+
+  .glow-text {
+    animation: glow-pulse 2s ease-in-out infinite;
+  }
+
+  .float-animation {
+    animation: float 3s ease-in-out infinite;
+  }
+
+  .slide-up-animation {
+    animation: slide-up 0.8s ease-out forwards;
+  }
+
+  /* Retro button enhancements */
+  .retro-button {
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s ease;
+  }
+
+  .retro-button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(168, 85, 247, 0.3), transparent);
+    transition: left 0.5s;
+  }
+
+  .retro-button:hover::before {
+    left: 100%;
+  }
+
+  /* Custom shadow utilities */
+  .shadow-neon {
+    box-shadow: var(--shadow-neon);
+  }
+
+  .shadow-neon-strong {
+    box-shadow: var(--shadow-neon-strong);
+  }
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-retro-dark);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-retro-purple);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-retro-accent);
+}

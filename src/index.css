@@ -1,17 +1,17 @@
 @import "tailwindcss";
 
 @theme {
-  --color-retro-purple: #6b7280;
+  --color-retro-purple: #a5b4fc;
   --color-retro-dark: #1f2937;
   --color-retro-light: #f8fafc;
-  --color-retro-accent: #4b5563;
+  --color-retro-accent: #94a3b8;
   --color-retro-bg: #0d1117;
   --color-retro-card: #1a1a1a;
   --color-retro-glow: #ffffff;
   
   --font-family-retro: "Courier New", monospace;
   
-  --shadow-neon: 0 0 5px #4b5563, 0 0 10px #4b5563, 0 0 15px #4b5563;
+  --shadow-neon: 0 0 5px #94a3b8, 0 0 10px #94a3b8, 0 0 15px #94a3b8;
   --shadow-neon-strong: 0 0 10px #ffffff, 0 0 20px #ffffff, 0 0 30px #ffffff;
 }
 

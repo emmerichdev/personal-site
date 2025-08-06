@@ -131,6 +131,12 @@ function App() {
                 >
                   [LINKEDIN]
                 </a>
+                <a 
+                  href="mailto:me@emmerichbrowne.com" 
+                  className="text-retro-accent hover:text-retro-glow transition-all duration-300 hover:scale-110 text-base sm:text-lg font-bold py-2 px-1 sm:px-2 -mx-1 sm:-mx-2"
+                >
+                  [EMAIL]
+                </a>
               </div>
             </div>
           </header>

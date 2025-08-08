@@ -48,7 +48,6 @@
     animation: slide-up 0.8s ease-out forwards;
   }
 
-  /* Retro button enhancements */
   .retro-button {
     position: relative;
     overflow: hidden;
@@ -76,6 +75,14 @@
 
   .shadow-neon-strong {
     box-shadow: var(--shadow-neon-strong);
+  }
+  
+  .clamp-3 {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
   }
 }
 

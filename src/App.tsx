@@ -1,62 +1,7 @@
-import { useState, useEffect, useCallback } from 'react';
-
-function TypingText({ text, className, onRetypeReady }: { text: string; className?: string; onRetypeReady?: (canRetype: boolean, handleRetype: () => void) => void }) {
-  const [displayText, setDisplayText] = useState('');
-  const [isTyping, setIsTyping] = useState(false);
-  const [hasTypedOnce, setHasTypedOnce] = useState(false);
-  const [hasInitiallyStarted, setHasInitiallyStarted] = useState(false);
-
-  const startTyping = useCallback(() => {
-    if (isTyping) return; 
-    
-    setIsTyping(true);
-    setDisplayText('');
-    
-    let i = 0;
-    const typeChar = () => {
-      if (i < text.length) {
-        setDisplayText(text.slice(0, i + 1));
-        i++;
-        setTimeout(typeChar, 50);
-      } else {
-        setIsTyping(false);
-        setHasTypedOnce(true);
-      }
-    };
-    
-    setTimeout(typeChar, 100);
-  }, [text]);
-
-  useEffect(() => {
-    if (!hasInitiallyStarted) {
-      const timer = setTimeout(() => {
-        startTyping();
-        setHasInitiallyStarted(true);
-      }, 500);
-
-      return () => clearTimeout(timer);
-    }
-  }, [startTyping, hasInitiallyStarted]);
-
-  useEffect(() => {
-    if (onRetypeReady) {
-      onRetypeReady(hasTypedOnce && !isTyping, startTyping);
-    }
-  }, [hasTypedOnce, isTyping, onRetypeReady, startTyping]);
-
-  return (
-    <div>
-      <p className={`${className} typing-text`}>
-        {displayText}
-      </p>
-      {hasTypedOnce && !isTyping && (
-        <p className="text-xs sm:text-sm text-retro-purple mt-3 sm:mt-4 opacity-60">
-          [TAP_TO_RETYPE]
-        </p>
-      )}
-    </div>
-  );
-}
+import { useState, useCallback } from 'react';
+import NavLinks from './components/NavLinks';
+import SocialLinks from './components/SocialLinks';
+import TypingText from './components/TypingText';
 
 function AboutSection() {
   const [canRetype, setCanRetype] = useState(false);
@@ -114,30 +59,7 @@ function App() {
             </div>
             
             <div className="space-y-4">
-              <div className="flex justify-center xl:justify-start space-x-6 sm:space-x-8">
-                <a 
-                  href="https://github.com/emmerichdev" 
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                  className="text-retro-accent hover:text-retro-glow transition-all duration-300 hover:scale-110 text-base sm:text-lg font-bold py-2 px-1 sm:px-2 -mx-1 sm:-mx-2"
-                >
-                  [GITHUB]
-                </a>
-                <a 
-                  href="https://www.linkedin.com/in/emmerichb/" 
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                  className="text-retro-accent hover:text-retro-glow transition-all duration-300 hover:scale-110 text-base sm:text-lg font-bold py-2 px-1 sm:px-2 -mx-1 sm:-mx-2"
-                >
-                  [LINKEDIN]
-                </a>
-                <a 
-                  href="mailto:me@emmerichbrowne.com" 
-                  className="text-retro-accent hover:text-retro-glow transition-all duration-300 hover:scale-110 text-base sm:text-lg font-bold py-2 px-1 sm:px-2 -mx-1 sm:-mx-2"
-                >
-                  [EMAIL]
-                </a>
-              </div>
+              <NavLinks />
             </div>
           </header>
 
@@ -156,6 +78,12 @@ function App() {
           <AboutSection />
         </div>
       </main>
+      <footer className="px-4 sm:px-6 md:px-8 py-6 border-t border-retro-accent/30">
+        <div className="max-w-7xl mx-auto flex items-center justify-between flex-col sm:flex-row gap-3">
+          <span className="text-retro-purple text-xs opacity-70">© {new Date().getFullYear()} Emmerich Browne</span>
+          <SocialLinks />
+        </div>
+      </footer>
     </div>
   )
 }

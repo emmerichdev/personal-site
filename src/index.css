@@ -56,9 +56,6 @@ body::before {
 
 a, button {
   min-height: 44px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
 }
 
 .typing-text {

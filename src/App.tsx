@@ -15,8 +15,16 @@ function App() {
               <h2 className="text-lg sm:text-xl md:text-2xl text-retro-accent typing-animation">
                 &gt; Backend Systems Developer_
               </h2>
+              <div className="flex items-center justify-center xl:justify-start text-retro-accent/60 text-sm">
+                <span className="font-mono text-xs mr-2">📍</span>
+                <span>Illinois, United States (CST)</span>
+              </div>
+              <div className="flex items-center justify-center xl:justify-start text-retro-accent/50 text-xs">
+                <span className="font-mono text-xs mr-2">🔄</span>
+                <span>Part-time available</span>
+              </div>
             </div>
-            
+
             <div className="flex items-center justify-center xl:justify-start space-x-2 text-retro-purple">
               <div className="flex-1 h-px bg-retro-purple max-w-16 sm:max-w-24"></div>
               <span className="text-xs font-mono">&gt;&gt;&gt;</span>

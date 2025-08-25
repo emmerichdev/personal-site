@@ -58,29 +58,4 @@ a, button {
   min-height: 44px;
 }
 
-.typing-text {
-  position: relative;
-  min-height: 2.5em;
-}
 
-.typing-text::after {
-  content: '|';
-  color: var(--color-retro-accent);
-  animation: blink-cursor 1s infinite;
-  margin-left: 2px;
-}
-
-@media (max-width: 640px) {
-  .typing-text {
-    min-height: 2em;
-  }
-  
-  .typing-text::after {
-    margin-left: 1px;
-  }
-}
-
-@keyframes blink-cursor {
-  0%, 50% { opacity: 1; }
-  51%, 100% { opacity: 0; }
-}

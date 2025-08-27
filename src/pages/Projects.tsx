@@ -107,17 +107,17 @@ export default function Projects() {
       <main className="flex-1 px-4 sm:px-6 md:px-8 py-6 sm:py-8 md:py-10">
         <div className="max-w-7xl mx-auto w-full">
           <header className="mb-8 sm:mb-10 md:mb-12 slide-up-animation">
-            <div className="flex items-center justify-between">
-              <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-retro-glow glow-text">[PROJECTS.sh]</h1>
+            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 sm:gap-0">
+              <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-retro-glow glow-text text-center sm:text-left">[PROJECTS.sh]</h1>
               <Link
                 to="/"
-                className="text-retro-accent hover:text-retro-glow transition-all duration-300 hover:scale-110 text-sm sm:text-base font-bold py-2 px-2"
+                className="text-retro-accent hover:text-retro-glow transition-all duration-300 hover:scale-110 text-sm sm:text-base font-bold py-2 px-2 self-center sm:self-auto"
               >
                 [HOME]
               </Link>
             </div>
-            <p className="text-retro-purple mt-2 text-sm opacity-70">Pinned repositories from GitHub</p>
-            <div className="flex items-center space-x-2 text-retro-purple mt-4">
+            <p className="text-retro-purple mt-2 text-sm opacity-70 text-center sm:text-left">Pinned repositories from GitHub</p>
+            <div className="flex items-center justify-center sm:justify-start space-x-2 text-retro-purple mt-4">
               <div className="flex-1 h-px bg-retro-purple max-w-24"></div>
               <span className="text-xs font-mono">&gt;&gt;&gt;</span>
               <div className="flex-1 h-px bg-retro-purple max-w-24"></div>

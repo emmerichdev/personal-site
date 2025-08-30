@@ -1,4 +1,4 @@
-import { useEffect, useState, useMemo } from 'react';
+import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import SocialLinks from '../components/SocialLinks';
 
@@ -9,12 +9,6 @@ type Repo = {
   language: string;
   stars: number;
   forks: number;
-  updatedAt?: string;
-  isFork?: boolean;
-  forkedFrom?: {
-    owner: string;
-    repo: string;
-  };
 };
 
 export default function Projects() {
@@ -43,39 +37,7 @@ export default function Projects() {
         const data: Repo[] = await response.json();
         
         if (!isMounted) return;
-
-        // Fetch additional repository data including fork information
-        const reposWithDetails = await Promise.all(
-          data.map(async (repo) => {
-            try {
-              const repoResponse = await fetch(
-                `https://api.github.com/repos/${repo.author}/${repo.name}`,
-                { signal: controller.signal }
-              );
-              
-              if (repoResponse.ok) {
-                const repoData = await repoResponse.json();
-                return {
-                  ...repo,
-                  updatedAt: repoData.updated_at,
-                  isFork: repoData.fork,
-                  forkedFrom: repoData.fork ? {
-                    owner: repoData.source?.owner?.login || repoData.parent?.owner?.login,
-                    repo: repoData.source?.name || repoData.parent?.name
-                  } : undefined
-                };
-              }
-              
-              return repo;
-            } catch (err) {
-              // If we can't fetch the details, just return the repo without them
-              return repo;
-            }
-          })
-        );
-
-        if (!isMounted) return;
-        setRepos(reposWithDetails);
+        setRepos(data);
       } catch (err) {
         if (!isMounted) return;
         if ((err as any)?.name === 'AbortError') return;
@@ -92,15 +54,7 @@ export default function Projects() {
     };
   }, []);
 
-  const visibleRepos = useMemo(() => {
-    return repos.sort((a, b) => {
-      // Sort by last updated if available, otherwise by stars
-      if (a.updatedAt && b.updatedAt) {
-        return new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime();
-      }
-      return b.stars - a.stars;
-    });
-  }, [repos]);
+
 
   return (
     <div className="min-h-screen bg-retro-bg text-retro-light font-retro flex flex-col">
@@ -132,13 +86,13 @@ export default function Projects() {
             <p className="text-red-400">{error}</p>
           )}
 
-          {!isLoading && !error && visibleRepos.length === 0 && (
+          {!isLoading && !error && repos.length === 0 && (
             <p className="text-retro-accent">No pinned repositories found. Pin some repositories on your GitHub profile to see them here!</p>
           )}
 
-          {!isLoading && !error && visibleRepos.length > 0 && (
+          {!isLoading && !error && repos.length > 0 && (
             <ul className="grid gap-4 sm:gap-6 md:gap-8 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
-              {visibleRepos.map((repo, index) => (
+              {repos.map((repo, index) => (
                 <li key={`${repo.author}-${repo.name}-${index}`}>
                   <a
                     href={`https://github.com/${repo.author}/${repo.name}`}
@@ -150,11 +104,7 @@ export default function Projects() {
                       <div className="text-retro-accent group-hover:text-retro-glow text-lg font-bold">
                         {repo.name}
                       </div>
-                      {repo.isFork && repo.forkedFrom && (
-                        <p className="mt-1 text-xs text-retro-purple/80">
-                          Forked from <span className="text-retro-purple">{repo.forkedFrom.owner}/{repo.forkedFrom.repo}</span>
-                        </p>
-                      )}
+
                       {repo.description && (
                         <p className="mt-2 text-sm text-retro-light/80 clamp-3">{repo.description}</p>
                       )}
@@ -164,9 +114,7 @@ export default function Projects() {
                         )}
                         <span className="px-2 py-1 bg-retro-dark/60 border border-retro-accent/40">★ {repo.stars}</span>
                         <span className="px-2 py-1 bg-retro-dark/60 border border-retro-accent/40">⑂ {repo.forks}</span>
-                        {repo.updatedAt && (
-                          <span className="ml-auto text-retro-purple opacity-70">Updated {new Date(repo.updatedAt).toLocaleDateString()}</span>
-                        )}
+
                       </div>
                     </div>
                   </a>

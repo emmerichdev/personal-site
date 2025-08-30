@@ -7,6 +7,7 @@ type Repo = {
   name: string;
   description: string;
   language: string;
+  languageColor: string;
   stars: number;
   forks: number;
 };
@@ -110,7 +111,15 @@ export default function Projects() {
                       )}
                       <div className="mt-auto pt-3 flex items-center flex-wrap gap-3 text-xs text-retro-accent/90">
                         {repo.language && (
-                          <span className="px-2 py-1 bg-retro-dark/60 border border-retro-accent/40">{repo.language}</span>
+                          <span 
+                            className="px-2 py-1 bg-retro-dark/60 border border-retro-accent/40 flex items-center gap-1"
+                          >
+                            <span 
+                              className="w-2 h-2 rounded-full"
+                              style={{ backgroundColor: repo.languageColor }}
+                            ></span>
+                            {repo.language}
+                          </span>
                         )}
                         <span className="px-2 py-1 bg-retro-dark/60 border border-retro-accent/40">★ {repo.stars}</span>
                         <span className="px-2 py-1 bg-retro-dark/60 border border-retro-accent/40">⑂ {repo.forks}</span>

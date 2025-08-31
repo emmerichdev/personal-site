@@ -21,7 +21,7 @@ function App() {
               </div>
               <div className="flex items-center justify-center xl:justify-start text-retro-light/80 text-xs">
                 <span className="font-mono text-xs mr-2">🔄</span>
-                <span>Part-time available</span>
+                <span>Open to opportunities</span>
               </div>
             </div>
 

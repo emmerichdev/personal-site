@@ -8,7 +8,7 @@ export default function AboutSection() {
       <div className="bg-retro-card border border-retro-accent/30 shadow-neon hover:shadow-neon-strong transition-all duration-300 rounded-xl p-6 sm:p-8 max-w-2xl xl:max-w-none mx-auto xl:mx-0">
         <div className="space-y-6">
           <p className="text-retro-light/90 leading-relaxed text-center xl:text-left text-base sm:text-lg">
-            Hello there, I'm a backend systems developer working on getting my Associates degree in Computer Science!
+            Hello there, I'm a backend systems developer working on getting my degree in Computer Science!
           </p>
 
           <div className="pt-4 border-t border-retro-accent/20">

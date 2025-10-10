@@ -1,18 +1,20 @@
 @import "tailwindcss";
 
 @theme {
-  --color-retro-purple: #a5b4fc;
-  --color-retro-dark: #1f2937;
-  --color-retro-light: #f8fafc;
-  --color-retro-accent: #94a3b8;
-  --color-retro-bg: #0d1117;
-  --color-retro-card: #1a1a1a;
+  --color-retro-purple: #818cf8;
+  --color-retro-dark: #1e293b;
+  --color-retro-light: #f1f5f9;
+  --color-retro-accent: #64748b;
+  --color-retro-bg: #0f172a;
+  --color-retro-card: #1e293b;
   --color-retro-glow: #ffffff;
+  --color-accent-blue: #3b82f6;
+  --color-accent-cyan: #06b6d4;
   
-  --font-family-retro: "Courier New", monospace;
+  --font-family-retro: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   
-  --shadow-neon: 0 0 5px #94a3b8, 0 0 10px #94a3b8, 0 0 15px #94a3b8;
-  --shadow-neon-strong: 0 0 10px #ffffff, 0 0 20px #ffffff, 0 0 30px #ffffff;
+  --shadow-neon: 0 0 20px rgba(129, 140, 248, 0.15), 0 2px 8px rgba(0, 0, 0, 0.3);
+  --shadow-neon-strong: 0 0 30px rgba(129, 140, 248, 0.3), 0 4px 16px rgba(0, 0, 0, 0.4);
 }
 
 html {
@@ -37,16 +39,17 @@ body::before {
   left: 0;
   width: 100%;
   height: 100%;
-  background-image: 
-    radial-gradient(circle at 1px 1px, rgba(107, 114, 128, 0.1) 1px, transparent 0);
-  background-size: 20px 20px;
+  background: 
+    radial-gradient(ellipse at top, rgba(129, 140, 248, 0.15) 0%, transparent 50%),
+    radial-gradient(circle at 1px 1px, rgba(100, 116, 139, 0.08) 1px, transparent 0);
+  background-size: 100% 100%, 32px 32px;
   pointer-events: none;
   z-index: -1;
 }
 
 @media (max-width: 768px) {
   body::before {
-    background-size: 15px 15px;
+    background-size: 100% 100%, 24px 24px;
   }
 }
 

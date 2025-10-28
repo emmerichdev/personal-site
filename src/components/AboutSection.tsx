@@ -8,7 +8,7 @@ export default function AboutSection() {
       <div className="bg-retro-card border border-retro-accent/30 shadow-neon hover:shadow-neon-strong transition-all duration-300 rounded-xl p-6 sm:p-8 max-w-2xl xl:max-w-none mx-auto xl:mx-0">
         <div className="space-y-6">
           <p className="text-retro-light/90 leading-relaxed text-center xl:text-left text-base sm:text-lg">
-            Hello there, I'm a backend systems developer working on getting my degree in Computer Science!
+            Hello there, I'm a backend systems developer working on getting my degree in Cybersecurity!
           </p>
 
           <div className="pt-4 border-t border-retro-accent/20">
@@ -21,16 +21,18 @@ export default function AboutSection() {
                     <div>
                       <span className="font-medium">PCM Tech Officer</span>
                       <span className="text-retro-light/60"> @ </span>
-                      <a 
-                        href="https://www.instagram.com/clcboardsnbytes/" 
-                        target="_blank" 
+                      <a
+                        href="https://www.instagram.com/clcboardsnbytes/"
+                        target="_blank"
                         rel="noopener noreferrer"
                         className="text-retro-purple hover:text-retro-glow transition-colors duration-300 font-medium"
                       >
                         Boards and Bytes
                       </a>
                       <span className="text-retro-light/60">, CLC</span>
-                      <p className="text-retro-light/60 text-xs mt-1">Computer maintenance and IT infrastructure management</p>
+                      <p className="text-retro-light/60 text-xs mt-1">
+                        Computer maintenance and IT infrastructure management
+                      </p>
                     </div>
                   </div>
                 </div>
@@ -38,17 +40,10 @@ export default function AboutSection() {
                   <div className="flex items-start gap-2 justify-center xl:justify-start">
                     <span className="text-retro-purple mt-0.5">•</span>
                     <div>
-                      <span className="font-medium">Developer</span>
-                      <span className="text-retro-light/60"> @ </span>
-                      <a 
-                        href="https://norisk.gg/" 
-                        target="_blank" 
-                        rel="noopener noreferrer"
-                        className="text-retro-purple hover:text-retro-glow transition-colors duration-300 font-medium"
-                      >
-                        NoRiskClient
-                      </a>
-                      <p className="text-retro-light/60 text-xs mt-1">Client-side software development</p>
+                      <span className="font-medium">Independent Researcher</span>
+                      <p className="text-retro-light/60 text-xs mt-1">
+                        Exploring practical cybersecurity and automation projects with a focus on resilient backend systems.
+                      </p>
                     </div>
                   </div>
                 </div>

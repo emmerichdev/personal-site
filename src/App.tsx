@@ -12,28 +12,31 @@ function App() {
                 Emmerich Browne
               </h1>
               <h2 className="text-xl sm:text-2xl md:text-3xl text-retro-purple font-medium">
-                Backend Systems Developer
+                Cybersecurity Student &amp; Backend Systems Developer
               </h2>
               <div className="flex flex-col sm:flex-row items-center justify-center xl:justify-start gap-3 sm:gap-6 text-retro-light/70 text-sm">
                 <div className="flex items-center gap-2">
-                  <span className="text-base">📍</span>
+                  <span className="text-base" role="img" aria-label="Location">
+                    📍
+                  </span>
                   <span>Illinois, United States</span>
                 </div>
-                <div className="hidden sm:block w-1 h-1 rounded-full bg-retro-accent/50"></div>
+                <div className="hidden sm:block w-1 h-1 rounded-full bg-retro-accent/50" aria-hidden="true"></div>
                 <div className="flex items-center gap-2">
-                  <span className="text-base">🎓</span>
-                  <span>Undergraduate @ CLC • Computer Science</span>
+                  <span className="text-base" role="img" aria-label="Graduation cap">
+                    🎓
+                  </span>
+                  <span>Undergraduate @ CLC • Cybersecurity</span>
                 </div>
               </div>
             </div>
-
           </header>
 
-          <div className="hidden xl:flex flex-col items-center justify-center px-4">
+          <div className="hidden xl:flex flex-col items-center justify-center px-4" aria-hidden="true">
             <div className="w-px h-full bg-gradient-to-b from-transparent via-retro-purple/40 to-transparent"></div>
           </div>
 
-          <div className="xl:hidden flex items-center justify-center w-full px-4 sm:px-8">
+          <div className="xl:hidden flex items-center justify-center w-full px-4 sm:px-8" aria-hidden="true">
             <div className="flex-1 h-px bg-gradient-to-r from-transparent via-retro-purple/40 to-transparent"></div>
           </div>
 
@@ -47,7 +50,7 @@ function App() {
         </div>
       </footer>
     </div>
-  )
+  );
 }
 
-export default App
+export default App;

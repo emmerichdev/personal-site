@@ -13,7 +13,7 @@ export default function SocialLinks() {
           href={link.url}
           target="_blank"
           rel="noopener noreferrer"
-          className="font-mono text-xs text-neutral-text-tertiary hover:text-white transition-colors uppercase tracking-wider"
+          className="font-mono text-xs text-neutral-text-secondary hover:text-white transition-colors uppercase tracking-wider"
         >
           {link.name}
         </a>

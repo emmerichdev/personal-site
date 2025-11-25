@@ -29,11 +29,11 @@ function App() {
         <AboutSection />
 
         <footer className="mt-24 pt-8 border-t border-neutral-border">
-          <div className="flex flex-col-reverse sm:flex-row sm:items-center justify-between gap-6">
-            <span className="font-mono text-xs text-neutral-text-tertiary">
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 sm:gap-6">
+            <SocialLinks />
+            <span className="font-mono text-xs text-neutral-text-secondary">
               © {new Date().getFullYear()} Emmerich Browne
             </span>
-            <SocialLinks />
           </div>
         </footer>
       </main>

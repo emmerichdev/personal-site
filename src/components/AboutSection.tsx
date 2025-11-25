@@ -9,7 +9,7 @@ export default function AboutSection() {
       </section>
 
       <section>
-        <h2 className="font-mono text-xs font-medium text-neutral-text-tertiary uppercase tracking-widest mb-8">
+        <h2 className="font-mono text-xs font-medium text-neutral-text-secondary uppercase tracking-widest mb-8">
           Active Roles
         </h2>
         
@@ -23,7 +23,7 @@ export default function AboutSection() {
                 href="https://www.instagram.com/clcboardsnbytes/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="font-mono text-xs text-neutral-text-tertiary hover:text-emerald-400 transition-colors"
+                className="font-mono text-xs text-neutral-text-secondary hover:text-emerald-400 transition-colors"
               >
                 @ Boards and Bytes ↗
               </a>
@@ -38,7 +38,7 @@ export default function AboutSection() {
               <h3 className="text-base font-medium text-neutral-text">
                 Independent Researcher
               </h3>
-              <span className="font-mono text-xs text-neutral-text-tertiary">
+              <span className="font-mono text-xs text-neutral-text-secondary">
                 Self-Directed
               </span>
             </div>

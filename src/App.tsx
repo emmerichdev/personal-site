@@ -6,7 +6,7 @@ function App() {
     <div className="min-h-screen bg-neutral-bg text-neutral-text selection:bg-white/20">
       <main className="max-w-2xl mx-auto px-6 sm:px-8 py-20 sm:py-24">
         
-        <header className="mb-16 sm:mb-20">
+        <header className="mb-12 sm:mb-16">
           <h1 className="text-3xl sm:text-4xl font-semibold tracking-tight text-neutral-text mb-4">
             Emmerich Browne
           </h1>
@@ -28,7 +28,7 @@ function App() {
 
         <AboutSection />
 
-        <footer className="mt-24 pt-8 border-t border-neutral-border">
+        <footer className="mt-12 sm:mt-16 pt-8 border-t border-neutral-border">
           <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 sm:gap-6">
             <SocialLinks />
             <span className="font-mono text-xs text-neutral-text-secondary">

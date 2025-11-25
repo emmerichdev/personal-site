@@ -1,14 +1,14 @@
 export default function AboutSection() {
   return (
-    <div className="space-y-16">
-      <section>
+    <div>
+      <section className="mb-12 sm:mb-16">
         <p className="text-lg leading-relaxed text-neutral-text-secondary max-w-prose">
           I design and secure backend systems. Currently focused on building game 
           infrastructure and automating workflows while completing my degree in Cybersecurity.
         </p>
       </section>
 
-      <section>
+      <section className="mb-12 sm:mb-16">
         <h2 className="font-mono text-xs font-medium text-neutral-text-secondary uppercase tracking-widest mb-8">
           Active Roles
         </h2>

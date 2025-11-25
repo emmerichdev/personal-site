@@ -1,64 +1,45 @@
 @import "tailwindcss";
 
 @theme {
-  --color-retro-purple: #818cf8;
-  --color-retro-dark: #1e293b;
-  --color-retro-light: #f1f5f9;
-  --color-retro-accent: #64748b;
-  --color-retro-bg: #0f172a;
-  --color-retro-card: #1e293b;
-  --color-retro-glow: #ffffff;
-  --color-accent-blue: #3b82f6;
-  --color-accent-cyan: #06b6d4;
+  --color-neutral-bg: #0a0a0a;
+  --color-neutral-surface: #171717;
+  --color-neutral-text: #ededed;
+  --color-neutral-text-secondary: #a3a3a3;
+  --color-neutral-text-tertiary: #525252;
+  --color-neutral-border: #262626;
   
-  --font-family-retro: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-  
-  --shadow-neon: 0 0 20px rgba(129, 140, 248, 0.15), 0 2px 8px rgba(0, 0, 0, 0.3);
-  --shadow-neon-strong: 0 0 30px rgba(129, 140, 248, 0.3), 0 4px 16px rgba(0, 0, 0, 0.4);
+  --font-family-sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-family-mono: 'JetBrains Mono', 'Fira Code', monospace;
 }
 
 html {
   scroll-behavior: smooth;
+  background: var(--color-neutral-bg);
 }
 
 body {
-  font-family: var(--font-family-retro);
-  background: var(--color-retro-bg);
-  color: var(--color-retro-light);
+  font-family: var(--font-family-sans);
+  background: var(--color-neutral-bg);
+  color: var(--color-neutral-text);
   overflow-x: hidden;
+  line-height: 1.6;
 }
 
-* {
-  box-sizing: border-box;
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: var(--color-neutral-bg);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-neutral-border);
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-neutral-text-tertiary);
 }
 
-body::before {
-  content: '';
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: 
-    radial-gradient(ellipse at top, rgba(129, 140, 248, 0.15) 0%, transparent 50%),
-    radial-gradient(circle at 1px 1px, rgba(100, 116, 139, 0.08) 1px, transparent 0);
-  background-size: 100% 100%, 32px 32px;
-  pointer-events: none;
-  z-index: -1;
+::selection {
+  background: rgba(255, 255, 255, 0.2);
+  color: #ffffff;
 }
-
-@media (max-width: 768px) {
-  body::before {
-    background-size: 100% 100%, 24px 24px;
-  }
-}
-
-* {
-  -webkit-tap-highlight-color: rgba(75, 85, 99, 0.3);
-}
-
-a, button {
-  min-height: 44px;
-}
-
-

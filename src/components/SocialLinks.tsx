@@ -1,33 +1,23 @@
 export default function SocialLinks() {
+  const links = [
+    { name: 'GitHub', url: 'https://github.com/emmerichdev' },
+    { name: 'LinkedIn', url: 'https://www.linkedin.com/in/emmerichb/' },
+    { name: 'Email', url: 'mailto:me@emmerichbrowne.com' },
+  ];
+
   return (
-    <div className="flex items-center justify-center gap-4 text-sm">
-      <a
-        href="https://github.com/emmerichdev"
-        target="_blank"
-        rel="noopener noreferrer"
-        className="inline-flex items-center leading-none text-retro-accent hover:text-retro-purple transition-colors duration-300 font-medium"
-        aria-label="GitHub"
-      >
-        GitHub
-      </a>
-      <div className="w-1 h-1 rounded-full bg-retro-accent/40" aria-hidden="true" role="separator" />
-      <a
-        href="https://www.linkedin.com/in/emmerichb/"
-        target="_blank"
-        rel="noopener noreferrer"
-        className="inline-flex items-center leading-none text-retro-accent hover:text-retro-purple transition-colors duration-300 font-medium"
-        aria-label="LinkedIn"
-      >
-        LinkedIn
-      </a>
-      <div className="w-1 h-1 rounded-full bg-retro-accent/40" aria-hidden="true" role="separator" />
-      <a
-        href="mailto:me@emmerichbrowne.com"
-        className="inline-flex items-center leading-none text-retro-accent hover:text-retro-purple transition-colors duration-300 font-medium"
-        aria-label="Email"
-      >
-        Email
-      </a>
+    <div className="flex items-center gap-6">
+      {links.map((link) => (
+        <a
+          key={link.name}
+          href={link.url}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="font-mono text-xs text-neutral-text-tertiary hover:text-white transition-colors uppercase tracking-wider"
+        >
+          {link.name}
+        </a>
+      ))}
     </div>
   );
 }

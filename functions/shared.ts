@@ -64,13 +64,10 @@ async function verifyAccessJWT(token: string, teamDomain: string, aud: string): 
 
     const payload = JSON.parse(new TextDecoder().decode(base64UrlDecode(payloadB64))) as AccessJWTPayload;
 
-    // Check expiration
     if (payload.exp && payload.exp < Date.now() / 1000) return null;
 
-    // Check audience
     if (!payload.aud?.includes(aud)) return null;
 
-    // Get public keys and verify signature
     const keys = await getAccessPublicKeys(teamDomain);
     const header = JSON.parse(new TextDecoder().decode(base64UrlDecode(headerB64))) as JWTHeader;
 
@@ -97,12 +94,10 @@ async function verifyAccessJWT(token: string, teamDomain: string, aud: string): 
 }
 
 export async function isAuthenticated(request: Request, env: Env): Promise<boolean> {
-  // First check if Access header is present (for protected paths)
   if (request.headers.get('CF-Access-Authenticated-User-Email')) {
     return true;
   }
 
-  // Otherwise, verify the JWT from cookie
   const cookies = request.headers.get('Cookie') || '';
   const match = cookies.match(/CF_Authorization=([^;]+)/);
   if (!match) return false;

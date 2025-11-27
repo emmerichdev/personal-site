@@ -1,0 +1,18 @@
+name = "personal-site"
+compatibility_date = "2024-01-01"
+pages_build_output_dir = "./dist"
+
+# D1 Database binding
+[[d1_databases]]
+binding = "DB"
+database_name = "personal-blog"
+database_id = "da6861bb-c99a-4b2a-8a59-099a9a3e122d"
+
+# R2 Bucket binding
+[[r2_buckets]]
+binding = "MEDIA_BUCKET"
+bucket_name = "blog-media"
+
+# Cloudflare Access secrets (set via wrangler pages secret put):
+# - ACCESS_AUD
+# - ACCESS_TEAM_DOMAIN

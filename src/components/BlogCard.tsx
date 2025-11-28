@@ -12,8 +12,12 @@ export default function BlogCard({ post, compact = false }: BlogCardProps) {
     <article className={`group ${compact ? '' : 'pb-6 border-b border-neutral-border last:border-0'}`}>
       <Link to={`/blog/${post.slug}`} className="block">
         {post.cover_image && !compact && (
-          <div className="mb-4 overflow-hidden rounded-lg aspect-video bg-neutral-border/50">
-            <img src={post.cover_image} alt={post.title} className="object-cover w-full h-full transition-transform duration-300 group-hover:scale-105" />
+          <div className="mb-4 overflow-hidden rounded-lg border border-neutral-border bg-neutral-border/50">
+            <img 
+              src={post.cover_image} 
+              alt={post.title} 
+              className="w-full h-auto max-h-64 object-contain transition-transform duration-300 group-hover:scale-[1.02] bg-neutral-border/40"
+            />
           </div>
         )}
         

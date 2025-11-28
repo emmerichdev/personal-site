@@ -1,16 +1,27 @@
+import { Link } from 'react-router-dom';
 import SocialLinks from '../components/SocialLinks';
 import AboutSection from '../components/AboutSection';
-import RecentPosts from '../components/RecentPosts';
 
 export default function Home() {
   return (
     <div className="min-h-screen bg-neutral-bg text-neutral-text selection:bg-white/20">
       <main className="max-w-2xl mx-auto px-6 sm:px-8 py-20 sm:py-24">
-        
+
         <header className="mb-12 sm:mb-16">
-          <h1 className="text-3xl sm:text-4xl font-semibold tracking-tight text-neutral-text mb-4">
-            Emmerich Browne
-          </h1>
+          <div className="flex items-center justify-between gap-4 mb-4">
+            <h1 className="text-3xl sm:text-4xl font-semibold tracking-tight text-neutral-text">
+              Emmerich Browne
+            </h1>
+            <Link 
+              to="/blog" 
+              className="inline-flex items-center gap-2 rounded-full border border-neutral-border/80 bg-neutral-bg/70 px-3 py-2 text-xs sm:text-sm font-mono uppercase tracking-wider text-neutral-text hover:border-neutral-text hover:bg-neutral-border/40 transition-colors"
+            >
+              Blog
+              <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+              </svg>
+            </Link>
+          </div>
           
           <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4 text-neutral-text-secondary mb-6">
             <p className="text-lg tracking-tight font-light">
@@ -28,8 +39,6 @@ export default function Home() {
         </header>
 
         <AboutSection />
-        
-        <RecentPosts />
 
         <footer className="mt-12 sm:mt-16 pt-8 border-t border-neutral-border">
           <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 sm:gap-6">

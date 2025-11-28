@@ -157,7 +157,11 @@ export default function Admin() {
                   <input type="file" accept="image/*" onChange={handleImageUpload} className="hidden" disabled={uploading} />
                 </label>
               </div>
-              {formData.cover_image && <img src={formData.cover_image} alt="Cover preview" className="mt-4 max-h-48 rounded-lg object-cover" />}
+              {formData.cover_image && (
+                <div className="mt-4 overflow-hidden rounded-lg border border-neutral-border bg-neutral-border/50">
+                  <img src={formData.cover_image} alt="Cover preview" className="w-full h-auto max-h-64 object-contain bg-neutral-border/40" />
+                </div>
+              )}
             </div>
             
             <div>

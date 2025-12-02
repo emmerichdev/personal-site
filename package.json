@@ -14,6 +14,7 @@
     "db:init:remote": "wrangler d1 execute personal-blog --remote --file=./schema.sql"
   },
   "dependencies": {
+    "@fontsource/inter": "^5.2.8",
     "@tanstack/query-sync-storage-persister": "^5.90.13",
     "@tanstack/react-query": "^5.90.11",
     "@tanstack/react-query-persist-client": "^5.90.13",

@@ -14,7 +14,7 @@ export default function Home() {
             </h1>
             <Link 
               to="/blog" 
-              className="inline-flex items-center gap-2 rounded-full border border-neutral-border/80 bg-neutral-bg/70 px-3 py-2 text-xs sm:text-sm font-mono uppercase tracking-wider text-neutral-text hover:border-neutral-text hover:bg-neutral-border/40 transition-colors"
+              className="inline-flex items-center gap-2 font-mono text-xs text-neutral-text-secondary hover:text-neutral-text transition-colors uppercase tracking-wider"
             >
               Blog
               <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">

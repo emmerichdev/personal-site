@@ -2,6 +2,7 @@ export default function SocialLinks() {
   const links = [
     { name: 'GitHub', url: 'https://github.com/emmerichdev' },
     { name: 'LinkedIn', url: 'https://www.linkedin.com/in/emmerichb/' },
+    { name: 'X', url: 'https://x.com/EmmerichBrowne' },
     { name: 'Email', url: 'mailto:me@emmerichbrowne.com' },
   ];
 

@@ -37,25 +37,6 @@ export default function Admin() {
     enabled: view === 'list' && !!auth?.authenticated,
   });
 
-  if (authLoading || authFetching) {
-    return <div className="min-h-screen flex items-center justify-center bg-neutral-bg text-neutral-text-secondary">Verifying session...</div>;
-  }
-
-  if (!auth?.authenticated) {
-    return (
-      <div className="min-h-screen flex items-center justify-center bg-neutral-bg text-neutral-text">
-        <div className="text-center">
-          <h1 className="text-2xl font-semibold mb-6">Admin Access</h1>
-          <a href="/api/auth/login" className="inline-block px-6 py-3 bg-neutral-text text-neutral-bg font-medium rounded-lg hover:bg-neutral-text-secondary transition-colors">
-            Login with GitHub
-          </a>
-        </div>
-      </div>
-    );
-  }
-
-  const isLoading = postsLoading;
-
   const createMutation = useMutation({
     mutationFn: createPost,
     onSuccess: () => {
@@ -81,6 +62,25 @@ export default function Admin() {
       setSuccess('Post deleted successfully!');
     },
   });
+
+  if (authLoading || authFetching) {
+    return <div className="min-h-screen flex items-center justify-center bg-neutral-bg text-neutral-text-secondary">Verifying session...</div>;
+  }
+
+  if (!auth?.authenticated) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-neutral-bg text-neutral-text">
+        <div className="text-center">
+          <h1 className="text-2xl font-semibold mb-6">Admin Access</h1>
+          <a href="/api/auth/login" className="inline-block px-6 py-3 bg-neutral-text text-neutral-bg font-medium rounded-lg hover:bg-neutral-text-secondary transition-colors">
+            Login with GitHub
+          </a>
+        </div>
+      </div>
+    );
+  }
+
+  const isLoading = postsLoading;
 
   async function handleEdit(slug: string) {
     const post = await fetchPost(slug);

@@ -5,7 +5,7 @@ import { formatDate } from '../lib/utils';
 
 export default function BlogPost() {
   const { slug } = useParams<{ slug: string }>();
-  
+
   const { data: post, isLoading, isError } = useQuery({
     queryKey: ['post', slug],
     queryFn: () => fetchPost(slug!),
@@ -36,7 +36,7 @@ export default function BlogPost() {
       <div className="min-h-screen bg-neutral-bg text-neutral-text">
         <main className="max-w-2xl mx-auto px-6 sm:px-8 py-20 sm:py-24">
           <Link to="/blog" className="inline-flex items-center gap-2 font-mono text-xs text-neutral-text-secondary hover:text-neutral-text transition-colors uppercase tracking-wider mb-8">
-            <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <svg className="w-4 h-4 mb-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
             </svg>
             Back to blog
@@ -54,7 +54,7 @@ export default function BlogPost() {
     <div className="min-h-screen bg-neutral-bg text-neutral-text selection:bg-white/20">
       <main className="max-w-2xl mx-auto px-6 sm:px-8 py-20 sm:py-24">
         <Link to="/blog" className="inline-flex items-center gap-2 font-mono text-xs text-neutral-text-secondary hover:text-neutral-text transition-colors uppercase tracking-wider mb-8">
-          <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <svg className="w-4 h-4 mb-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
           </svg>
           Back to blog
@@ -72,15 +72,15 @@ export default function BlogPost() {
 
           {post.cover_image && (
             <div className="mb-8 overflow-hidden rounded-lg border border-neutral-border bg-neutral-border/50">
-              <img 
-                src={post.cover_image} 
-                alt={post.title} 
+              <img
+                src={post.cover_image}
+                alt={post.title}
                 className="w-full h-auto max-h-[28rem] object-contain bg-neutral-border/40"
               />
             </div>
           )}
 
-          <div 
+          <div
             className="prose prose-invert prose-neutral max-w-none prose-headings:font-semibold prose-headings:tracking-tight prose-h2:text-2xl prose-h2:mt-10 prose-h2:mb-4 prose-h3:text-xl prose-h3:mt-8 prose-h3:mb-3 prose-p:text-neutral-text-secondary prose-p:leading-relaxed prose-a:text-neutral-text prose-a:underline prose-a:underline-offset-4 hover:prose-a:text-neutral-text-secondary prose-strong:text-neutral-text prose-strong:font-semibold prose-code:text-neutral-text prose-code:bg-neutral-border/50 prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded prose-code:before:content-none prose-code:after:content-none prose-pre:bg-neutral-border/30 prose-pre:border prose-pre:border-neutral-border prose-blockquote:border-neutral-border prose-blockquote:text-neutral-text-secondary prose-ul:text-neutral-text-secondary prose-ol:text-neutral-text-secondary prose-li:marker:text-neutral-text-tertiary prose-img:rounded-lg prose-img:w-full prose-img:h-auto prose-img:max-h-[28rem] prose-img:object-contain prose-img:bg-neutral-border/40 prose-img:border prose-img:border-neutral-border prose-img:p-3 prose-img:mx-auto"
             dangerouslySetInnerHTML={{ __html: post.content }}
           />

@@ -1,8 +1,9 @@
 export interface Env {
   DB: D1Database;
   MEDIA_BUCKET: R2Bucket;
-  ACCESS_AUD: string;
-  ACCESS_TEAM_DOMAIN: string;
+  GITHUB_CLIENT_ID: string;
+  GITHUB_CLIENT_SECRET: string;
+  SESSION_SECRET: string;
 }
 
 export interface Post {
@@ -25,85 +26,53 @@ export function corsHeaders(): HeadersInit {
   };
 }
 
-interface AccessJWTPayload {
-  email?: string;
-  exp?: number;
-  aud?: string[];
+async function sign(data: string, secret: string): Promise<string> {
+  const encoder = new TextEncoder();
+  const key = await crypto.subtle.importKey(
+    'raw',
+    encoder.encode(secret),
+    { name: 'HMAC', hash: 'SHA-256' },
+    false,
+    ['sign']
+  );
+  const signature = await crypto.subtle.sign('HMAC', key, encoder.encode(data));
+  return btoa(String.fromCharCode(...new Uint8Array(signature)));
 }
 
-interface AccessJWK extends JsonWebKey {
-  kid?: string;
+async function verify(data: string, signature: string, secret: string): Promise<boolean> {
+  const expected = await sign(data, secret);
+  return signature === expected;
 }
 
-interface JWKSResponse {
-  keys: AccessJWK[];
-}
+export async function createSessionCookie(email: string, secret: string): Promise<string> {
+  const expires = Date.now() + 1000 * 60 * 60 * 24 * 7; // 7 days
+  const data = JSON.stringify({ email, expires });
+  const signature = await sign(data, secret);
+  const value = btoa(data) + '.' + signature;
 
-interface JWTHeader {
-  kid?: string;
-  alg?: string;
-}
-
-function base64UrlDecode(str: string): Uint8Array {
-  const base64 = str.replace(/-/g, '+').replace(/_/g, '/');
-  const padding = '='.repeat((4 - (base64.length % 4)) % 4);
-  const binary = atob(base64 + padding);
-  return Uint8Array.from(binary, c => c.charCodeAt(0));
-}
-
-async function getAccessPublicKeys(teamDomain: string): Promise<AccessJWK[]> {
-  const response = await fetch(`https://${teamDomain}/cdn-cgi/access/certs`);
-  const data = await response.json() as JWKSResponse;
-  return data.keys;
-}
-
-async function verifyAccessJWT(token: string, teamDomain: string, aud: string): Promise<AccessJWTPayload | null> {
-  try {
-    const [headerB64, payloadB64, signatureB64] = token.split('.');
-    if (!headerB64 || !payloadB64 || !signatureB64) return null;
-
-    const payload = JSON.parse(new TextDecoder().decode(base64UrlDecode(payloadB64))) as AccessJWTPayload;
-
-    if (payload.exp && payload.exp < Date.now() / 1000) return null;
-
-    if (!payload.aud?.includes(aud)) return null;
-
-    const keys = await getAccessPublicKeys(teamDomain);
-    const header = JSON.parse(new TextDecoder().decode(base64UrlDecode(headerB64))) as JWTHeader;
-
-    const key = keys.find(k => k.kid === header.kid);
-    if (!key) return null;
-
-    const cryptoKey = await crypto.subtle.importKey(
-      'jwk',
-      key,
-      { name: 'RSASSA-PKCS1-v1_5', hash: 'SHA-256' },
-      false,
-      ['verify']
-    );
-
-    const data = new TextEncoder().encode(`${headerB64}.${payloadB64}`);
-    const signature = base64UrlDecode(signatureB64);
-
-    const valid = await crypto.subtle.verify('RSASSA-PKCS1-v1_5', cryptoKey, signature, data);
-
-    return valid ? payload : null;
-  } catch {
-    return null;
-  }
+  return `session=${value}; Path=/; HttpOnly; Secure; SameSite=Lax; Max-Age=${60 * 60 * 24 * 7}`;
 }
 
 export async function isAuthenticated(request: Request, env: Env): Promise<boolean> {
-  if (request.headers.get('CF-Access-Authenticated-User-Email')) {
-    return true;
-  }
+  const cookieHeader = request.headers.get('Cookie');
+  if (!cookieHeader) return false;
 
-  const cookies = request.headers.get('Cookie') || '';
-  const match = cookies.match(/CF_Authorization=([^;]+)/);
+  const match = cookieHeader.match(/session=([^;]+)/);
   if (!match) return false;
 
-  const token = match[1];
-  const payload = await verifyAccessJWT(token, env.ACCESS_TEAM_DOMAIN, env.ACCESS_AUD);
+  const [dataB64, signature] = match[1].split('.');
+  if (!dataB64 || !signature) return false;
 
-  return payload !== null && !!payload.email;
+  try {
+    const dataStr = atob(dataB64);
+    const valid = await verify(dataStr, signature, env.SESSION_SECRET);
+    if (!valid) return false;
+
+    const { email, expires } = JSON.parse(dataStr);
+    if (Date.now() > expires) return false;
+
+    return email === 'emmerichhbrowne@gmail.com';
+  } catch {
+    return false;
+  }
 }

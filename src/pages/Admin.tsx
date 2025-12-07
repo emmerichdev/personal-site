@@ -21,11 +21,38 @@ export default function Admin() {
   const [uploading, setUploading] = useState(false);
   const [success, setSuccess] = useState<string | null>(null);
 
-  const { data: posts = [], isLoading, error } = useQuery({
+  const { data: auth, isLoading: authLoading } = useQuery({
+    queryKey: ['auth'],
+    queryFn: async () => {
+      const res = await fetch('/api/auth/me');
+      return res.json() as Promise<{ authenticated: boolean }>;
+    },
+  });
+
+  const { data: posts = [], isLoading: postsLoading, error } = useQuery({
     queryKey: ['posts', 'admin'],
     queryFn: () => fetchPosts({ includeUnpublished: true }),
-    enabled: view === 'list',
+    enabled: view === 'list' && !!auth?.authenticated,
   });
+
+  if (authLoading) {
+    return <div className="min-h-screen flex items-center justify-center bg-neutral-bg text-neutral-text-secondary">Loading...</div>;
+  }
+
+  if (!auth?.authenticated) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-neutral-bg text-neutral-text">
+        <div className="text-center">
+          <h1 className="text-2xl font-semibold mb-6">Admin Access</h1>
+          <a href="/api/auth/login" className="inline-block px-6 py-3 bg-neutral-text text-neutral-bg font-medium rounded-lg hover:bg-neutral-text-secondary transition-colors">
+            Login with GitHub
+          </a>
+        </div>
+      </div>
+    );
+  }
+
+  const isLoading = postsLoading;
 
   const createMutation = useMutation({
     mutationFn: createPost,
@@ -111,7 +138,7 @@ export default function Admin() {
   async function handleLogout() {
     queryClient.clear();
     localStorage.removeItem('blog-cache');
-    window.location.replace('/api/logout');
+    window.location.replace('/api/auth/logout');
   }
 
   const mutationError = createMutation.error || updateMutation.error || deleteMutation.error;

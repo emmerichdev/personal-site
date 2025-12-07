@@ -28,7 +28,7 @@ export const onRequestGet: PagesFunction<Env> = async (context) => {
     return new Response(JSON.stringify({ post }), {
       headers: {
         'Content-Type': 'application/json',
-        'Cache-Control': 'private, no-store, no-cache, must-revalidate',
+        'Cache-Control': 'public, max-age=3600, stale-while-revalidate=86400',
         ...corsHeaders()
       },
     });

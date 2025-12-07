@@ -108,10 +108,10 @@ export default function Admin() {
     });
   }
 
-  function handleLogout() {
+  async function handleLogout() {
     queryClient.clear();
     localStorage.removeItem('blog-cache');
-    window.location.href = '/api/logout';
+    window.location.replace('/api/logout');
   }
 
   const mutationError = createMutation.error || updateMutation.error || deleteMutation.error;
@@ -142,12 +142,12 @@ export default function Admin() {
                 <input type="text" value={formData.slug} onChange={(e) => setFormData({ ...formData, slug: e.target.value })} className="w-full px-4 py-3 bg-neutral-border/30 border border-neutral-border rounded-lg focus:outline-none focus:border-neutral-text-secondary transition-colors font-mono text-sm" required />
               </div>
             </div>
-            
+
             <div>
               <label className="block font-mono text-xs text-neutral-text-secondary uppercase tracking-wider mb-2">Excerpt</label>
               <textarea value={formData.excerpt} onChange={(e) => setFormData({ ...formData, excerpt: e.target.value })} rows={2} className="w-full px-4 py-3 bg-neutral-border/30 border border-neutral-border rounded-lg focus:outline-none focus:border-neutral-text-secondary transition-colors resize-none" />
             </div>
-            
+
             <div>
               <label className="block font-mono text-xs text-neutral-text-secondary uppercase tracking-wider mb-2">Cover Image</label>
               <div className="flex gap-4 items-start">
@@ -163,17 +163,17 @@ export default function Admin() {
                 </div>
               )}
             </div>
-            
+
             <div>
               <label className="block font-mono text-xs text-neutral-text-secondary uppercase tracking-wider mb-2">Content * (HTML supported)</label>
               <textarea value={formData.content} onChange={(e) => setFormData({ ...formData, content: e.target.value })} rows={15} className="w-full px-4 py-3 bg-neutral-border/30 border border-neutral-border rounded-lg focus:outline-none focus:border-neutral-text-secondary transition-colors resize-y font-mono text-sm" required />
             </div>
-            
+
             <div className="flex items-center gap-3">
               <input type="checkbox" id="published" checked={formData.published} onChange={(e) => setFormData({ ...formData, published: e.target.checked })} className="w-4 h-4 rounded border-neutral-border bg-neutral-border/30 text-neutral-text focus:ring-0 focus:ring-offset-0" />
               <label htmlFor="published" className="text-sm text-neutral-text-secondary">Published</label>
             </div>
-            
+
             <div className="flex gap-4 pt-4">
               <button type="submit" disabled={isMutating} className="px-6 py-3 bg-neutral-text text-neutral-bg font-medium rounded-lg hover:bg-neutral-text-secondary transition-colors disabled:opacity-50">
                 {isMutating ? 'Saving...' : view === 'create' ? 'Create Post' : 'Update Post'}

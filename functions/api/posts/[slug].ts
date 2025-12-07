@@ -25,14 +25,12 @@ export const onRequestGet: PagesFunction<Env> = async (context) => {
       });
     }
 
-    const cacheControl = post.published
-      ? 'public, max-age=3600, stale-while-revalidate=86400'
-      : 'private, no-cache';
-
     return new Response(JSON.stringify({ post }), {
       headers: {
         'Content-Type': 'application/json',
-        'Cache-Control': cacheControl,
+        'Cache-Control': 'no-store, no-cache, must-revalidate, proxy-revalidate',
+        'CDN-Cache-Control': 'no-store',
+        'Cloudflare-CDN-Cache-Control': 'no-store',
         ...corsHeaders()
       },
     });

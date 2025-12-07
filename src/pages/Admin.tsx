@@ -21,12 +21,14 @@ export default function Admin() {
   const [uploading, setUploading] = useState(false);
   const [success, setSuccess] = useState<string | null>(null);
 
-  const { data: auth, isLoading: authLoading } = useQuery({
+  const { data: auth, isLoading: authLoading, isFetching: authFetching } = useQuery({
     queryKey: ['auth'],
     queryFn: async () => {
       const res = await fetch('/api/auth/me');
       return res.json() as Promise<{ authenticated: boolean }>;
     },
+    staleTime: 0,
+    gcTime: 0,
   });
 
   const { data: posts = [], isLoading: postsLoading, error } = useQuery({
@@ -35,8 +37,8 @@ export default function Admin() {
     enabled: view === 'list' && !!auth?.authenticated,
   });
 
-  if (authLoading) {
-    return <div className="min-h-screen flex items-center justify-center bg-neutral-bg text-neutral-text-secondary">Loading...</div>;
+  if (authLoading || authFetching) {
+    return <div className="min-h-screen flex items-center justify-center bg-neutral-bg text-neutral-text-secondary">Verifying session...</div>;
   }
 
   if (!auth?.authenticated) {

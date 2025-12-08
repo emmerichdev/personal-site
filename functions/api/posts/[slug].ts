@@ -1,4 +1,4 @@
-import { Env, Post, isAuthenticated, corsHeaders } from '../../shared';
+import { Env, Post, isAuthenticated, corsHeaders, cacheHeaders, noStoreHeaders, createEtag, etagMatches } from '../../shared';
 
 export const onRequestOptions: PagesFunction<Env> = async () => {
   return new Response(null, { status: 204, headers: corsHeaders() });
@@ -14,25 +14,45 @@ export const onRequestGet: PagesFunction<Env> = async (context) => {
     if (!post) {
       return new Response(JSON.stringify({ error: 'Post not found' }), {
         status: 404,
-        headers: { 'Content-Type': 'application/json', ...corsHeaders() },
+        headers: { 'Content-Type': 'application/json', ...corsHeaders(), ...noStoreHeaders() },
       });
     }
 
     if (!post.published && !await isAuthenticated(request, env)) {
       return new Response(JSON.stringify({ error: 'Post not found' }), {
         status: 404,
-        headers: { 'Content-Type': 'application/json', ...corsHeaders() },
+        headers: { 'Content-Type': 'application/json', ...corsHeaders(), ...noStoreHeaders() },
       });
     }
 
-    return new Response(JSON.stringify({ post }), {
-      headers: {
-        'Content-Type': 'application/json',
-        'Cache-Control': 'no-store, no-cache, must-revalidate, proxy-revalidate',
-        'CDN-Cache-Control': 'no-store',
-        'Cloudflare-CDN-Cache-Control': 'no-store',
-        ...corsHeaders()
-      },
+    const payload = JSON.stringify({ post });
+    const baseHeaders = { 'Content-Type': 'application/json', ...corsHeaders() };
+
+    if (!post.published) {
+      return new Response(payload, {
+        headers: { ...baseHeaders, ...noStoreHeaders() },
+      });
+    }
+
+    const etag = await createEtag(post);
+    const lastModified = post.updated_at ? new Date(post.updated_at).toUTCString() : undefined;
+    const caching = cacheHeaders({
+      browserTtl: 300,
+      cdnTtl: 900,
+      staleWhileRevalidateSeconds: 86400,
+      etag,
+      lastModified,
+    });
+
+    if (etagMatches(request.headers.get('If-None-Match'), etag)) {
+      return new Response(null, {
+        status: 304,
+        headers: { ...baseHeaders, ...caching },
+      });
+    }
+
+    return new Response(payload, {
+      headers: { ...baseHeaders, ...caching },
     });
   } catch (error) {
     console.error('Error fetching post:', error);

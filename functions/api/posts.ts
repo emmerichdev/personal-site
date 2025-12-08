@@ -1,4 +1,4 @@
-import { Env, Post, isAuthenticated, corsHeaders } from '../shared';
+import { Env, Post, isAuthenticated, corsHeaders, cacheHeaders, noStoreHeaders, createEtag, etagMatches } from '../shared';
 
 export const onRequestOptions: PagesFunction<Env> = async () => {
   return new Response(null, { status: 204, headers: corsHeaders() });
@@ -9,12 +9,13 @@ export const onRequestGet: PagesFunction<Env> = async (context) => {
   const url = new URL(request.url);
   const limit = url.searchParams.get('limit');
   const includeUnpublished = url.searchParams.get('all') === 'true';
+  const isAdminRequest = includeUnpublished ? await isAuthenticated(request, env) : false;
 
   try {
     let query = 'SELECT id, slug, title, excerpt, cover_image, published, created_at, updated_at FROM posts';
     const params: (string | number)[] = [];
 
-    if (!includeUnpublished || !await isAuthenticated(request, env)) {
+    if (!includeUnpublished || !isAdminRequest) {
       query += ' WHERE published = 1';
     }
 
@@ -26,15 +27,34 @@ export const onRequestGet: PagesFunction<Env> = async (context) => {
     }
 
     const { results } = await env.DB.prepare(query).bind(...params).all<Omit<Post, 'content'>>();
+    const payload = JSON.stringify({ posts: results });
+    const baseHeaders = { 'Content-Type': 'application/json', ...corsHeaders() };
 
-    return new Response(JSON.stringify({ posts: results }), {
-      headers: {
-        'Content-Type': 'application/json',
-        'Cache-Control': 'no-store, no-cache, must-revalidate, proxy-revalidate',
-        'CDN-Cache-Control': 'no-store',
-        'Cloudflare-CDN-Cache-Control': 'no-store',
-        ...corsHeaders()
-      },
+    if (isAdminRequest) {
+      return new Response(payload, {
+        headers: { ...baseHeaders, ...noStoreHeaders() },
+      });
+    }
+
+    const etag = await createEtag(results);
+    const lastModified = results[0]?.updated_at ? new Date(results[0].updated_at).toUTCString() : undefined;
+    const caching = cacheHeaders({
+      browserTtl: 120,
+      cdnTtl: 600,
+      staleWhileRevalidateSeconds: 86400,
+      etag,
+      lastModified,
+    });
+
+    if (etagMatches(request.headers.get('If-None-Match'), etag)) {
+      return new Response(null, {
+        status: 304,
+        headers: { ...baseHeaders, ...caching },
+      });
+    }
+
+    return new Response(payload, {
+      headers: { ...baseHeaders, ...caching },
     });
   } catch (error) {
     console.error('Error fetching posts:', error);

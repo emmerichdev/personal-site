@@ -26,6 +26,76 @@ export function corsHeaders(): HeadersInit {
   };
 }
 
+interface CacheOptions {
+  browserTtl?: number;
+  cdnTtl?: number;
+  staleWhileRevalidateSeconds?: number;
+  privacy?: 'public' | 'private';
+  etag?: string;
+  lastModified?: string;
+}
+
+export function cacheHeaders({
+  browserTtl = 300,
+  cdnTtl = 900,
+  staleWhileRevalidateSeconds = 86400,
+  privacy = 'public',
+  etag,
+  lastModified,
+}: CacheOptions = {}): HeadersInit {
+  const cacheControl: string[] = [privacy, `max-age=${browserTtl}`, `s-maxage=${cdnTtl}`];
+
+  if (staleWhileRevalidateSeconds) {
+    cacheControl.push(`stale-while-revalidate=${staleWhileRevalidateSeconds}`);
+  }
+
+  const sharedCacheValue = [
+    privacy,
+    `max-age=${cdnTtl}`,
+    staleWhileRevalidateSeconds ? `stale-while-revalidate=${staleWhileRevalidateSeconds}` : undefined,
+  ].filter(Boolean).join(', ');
+
+  const headers: HeadersInit = {
+    'Cache-Control': cacheControl.join(', '),
+    'CDN-Cache-Control': sharedCacheValue,
+    'Cloudflare-CDN-Cache-Control': sharedCacheValue,
+  };
+
+  if (etag) headers['ETag'] = etag;
+  if (lastModified) headers['Last-Modified'] = lastModified;
+
+  return headers;
+}
+
+export function noStoreHeaders(): HeadersInit {
+  return {
+    'Cache-Control': 'no-store',
+    'CDN-Cache-Control': 'no-store',
+    'Cloudflare-CDN-Cache-Control': 'no-store',
+  };
+}
+
+export async function createEtag(payload: unknown): Promise<string> {
+  const encoder = new TextEncoder();
+  const json = JSON.stringify(payload);
+  const hashBuffer = await crypto.subtle.digest('SHA-256', encoder.encode(json));
+  let binary = '';
+  const bytes = new Uint8Array(hashBuffer);
+  for (const byte of bytes) {
+    binary += String.fromCharCode(byte);
+  }
+  const base64Hash = btoa(binary);
+  return `W/"${base64Hash}"`;
+}
+
+export function etagMatches(ifNoneMatch: string | null, currentEtag: string): boolean {
+  if (!ifNoneMatch) return false;
+  if (ifNoneMatch.trim() === '*') return true;
+
+  const candidates = ifNoneMatch.split(',').map((tag) => tag.trim()).filter(Boolean);
+  return candidates.some((tag) => tag === currentEtag);
+}
+
 async function sign(data: string, secret: string): Promise<string> {
   const encoder = new TextEncoder();
   const key = await crypto.subtle.importKey(

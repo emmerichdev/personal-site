@@ -35,6 +35,8 @@ export default function Admin() {
     queryKey: ['posts', 'admin'],
     queryFn: () => fetchPosts({ includeUnpublished: true }),
     enabled: view === 'list' && !!auth?.authenticated,
+    staleTime: 0,
+    gcTime: 0,
   });
 
   const createMutation = useMutation({

@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { fetchPosts, fetchPost, createPost, updatePost, deletePost, uploadFile } from '../lib/api';
 import { generateSlug } from '../lib/utils';
+import { isLocalMode } from '../lib/config';
+import { MOCK_POSTS_STORAGE_KEY } from '../lib/mockApi';
 
 type View = 'list' | 'edit' | 'create';
 
@@ -29,12 +31,16 @@ export default function Admin() {
     },
     staleTime: 0,
     gcTime: 0,
+    enabled: !isLocalMode,
   });
+
+  const isAuthLoading = isLocalMode ? false : (authLoading || authFetching);
+  const isAuthenticated = isLocalMode ? true : !!auth?.authenticated;
 
   const { data: posts = [], isLoading: postsLoading, error } = useQuery({
     queryKey: ['posts', 'admin'],
     queryFn: () => fetchPosts({ includeUnpublished: true }),
-    enabled: view === 'list' && !!auth?.authenticated,
+    enabled: view === 'list' && isAuthenticated,
     staleTime: 0,
     gcTime: 0,
   });
@@ -65,11 +71,11 @@ export default function Admin() {
     },
   });
 
-  if (authLoading || authFetching) {
+  if (isAuthLoading) {
     return <div className="min-h-screen flex items-center justify-center bg-neutral-bg text-neutral-text-secondary">Verifying session...</div>;
   }
 
-  if (!auth?.authenticated) {
+  if (!isAuthenticated) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-neutral-bg text-neutral-text">
         <div className="text-center">
@@ -143,7 +149,14 @@ export default function Admin() {
 
   async function handleLogout() {
     queryClient.clear();
-    localStorage.removeItem('blog-cache');
+    const cacheKeys = ['blog-cache', MOCK_POSTS_STORAGE_KEY];
+    for (const key of cacheKeys) {
+      localStorage.removeItem(key);
+    }
+    if (isLocalMode) {
+      window.location.reload();
+      return;
+    }
     window.location.replace('/api/auth/logout');
   }
 

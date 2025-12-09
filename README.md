@@ -83,7 +83,7 @@ The repository now includes a lightweight mock API so you can work on the UI wit
 
 When `VITE_LOCAL_MODE` is enabled the app:
 
-- Uses in-browser storage for blog post CRUD operations (seeded with sample posts)
+- Uses in-browser storage for blog post CRUD operations (starts empty per browser profile)
 - Treats the `/admin` route as authenticated
 - Skips calls to the server-side `/api/auth/*` endpoints
 

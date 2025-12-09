@@ -32,54 +32,13 @@ function persist(posts: Post[]): void {
   }
 }
 
-function buildSeedPosts(): Post[] {
-  const now = Date.now();
-  const makeTimestamp = (offsetDays: number) =>
-    new Date(now - offsetDays * 24 * 60 * 60 * 1000).toISOString();
-
-  const firstTimestamp = makeTimestamp(3);
-  const secondTimestamp = makeTimestamp(10);
-
-  return [
-    {
-      id: 1,
-      slug: 'launching-the-site',
-      title: 'Launching the new site experience',
-      excerpt: 'Behind-the-scenes details on the stack powering this personal site.',
-      content:
-        '<p>The production site is deployed to Cloudflare Pages with a D1 database and R2 storage. During development, you can work entirely offline thanks to the local mock API provided in this repository.</p><p>Use the admin area to create, edit, and delete posts. When you are ready to sync real data, disable local mode to hit the deployed API endpoints.</p>',
-      cover_image: null,
-      published: true,
-      created_at: firstTimestamp,
-      updated_at: firstTimestamp,
-    },
-    {
-      id: 2,
-      slug: 'roadmap-2025',
-      title: '2025 roadmap and upcoming articles',
-      excerpt: 'A quick look at the topics planned for the next few months.',
-      content:
-        '<p>This mock entry is here so you have something to look at while working locally. Add or edit posts from the admin section—everything is stored in your browser only.</p>',
-      cover_image: null,
-      published: false,
-      created_at: secondTimestamp,
-      updated_at: secondTimestamp,
-    },
-  ];
-}
-
 function getPosts(): Post[] {
-  if (memoryStore) return [...memoryStore];
-
-  const stored = loadFromStorage();
-  if (stored?.length) {
-    memoryStore = [...stored];
-    return [...memoryStore];
+  if (!memoryStore) {
+    const stored = loadFromStorage();
+    memoryStore = stored ? [...stored] : [];
   }
 
-  const seeded = buildSeedPosts();
-  persist(seeded);
-  return [...seeded];
+  return [...memoryStore];
 }
 
 function nextId(posts: Post[]): number {

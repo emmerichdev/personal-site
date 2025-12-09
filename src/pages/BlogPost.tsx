@@ -1,6 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
 import { Link, useParams } from 'react-router-dom';
 import { fetchPost } from '../lib/api';
+import { renderMarkdown } from '../lib/markdown';
 import { formatDate } from '../lib/utils';
 
 export default function BlogPost() {
@@ -81,8 +82,8 @@ export default function BlogPost() {
           )}
 
           <div
-            className="prose prose-invert prose-neutral max-w-none prose-headings:font-semibold prose-headings:tracking-tight prose-h2:text-2xl prose-h2:mt-10 prose-h2:mb-4 prose-h3:text-xl prose-h3:mt-8 prose-h3:mb-3 prose-p:text-neutral-text-secondary prose-p:leading-relaxed prose-a:text-neutral-text prose-a:underline prose-a:underline-offset-4 hover:prose-a:text-neutral-text-secondary prose-strong:text-neutral-text prose-strong:font-semibold prose-code:text-neutral-text prose-code:bg-neutral-border/50 prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded prose-code:before:content-none prose-code:after:content-none prose-pre:bg-neutral-border/30 prose-pre:border prose-pre:border-neutral-border prose-blockquote:border-neutral-border prose-blockquote:text-neutral-text-secondary prose-ul:text-neutral-text-secondary prose-ol:text-neutral-text-secondary prose-li:marker:text-neutral-text-tertiary prose-img:rounded-lg prose-img:w-full prose-img:h-auto prose-img:max-h-[28rem] prose-img:object-contain prose-img:bg-neutral-border/40 prose-img:border prose-img:border-neutral-border prose-img:p-3 prose-img:mx-auto"
-            dangerouslySetInnerHTML={{ __html: post.content }}
+            className="prose prose-invert prose-neutral max-w-none prose-headings:font-semibold prose-headings:tracking-tight prose-h1:text-4xl prose-h1:leading-tight prose-h1:mt-0 prose-h1:mb-6 prose-h2:text-2xl prose-h2:mt-10 prose-h2:mb-4 prose-h3:text-xl prose-h3:mt-8 prose-h3:mb-3 prose-h4:text-lg prose-h4:mt-6 prose-h4:mb-2 prose-p:text-neutral-text-secondary prose-p:leading-relaxed prose-a:text-neutral-text prose-a:underline prose-a:underline-offset-4 hover:prose-a:text-neutral-text-secondary prose-strong:text-neutral-text prose-strong:font-semibold prose-code:text-neutral-text prose-code:bg-neutral-border/50 prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded prose-code:before:content-none prose-code:after:content-none prose-pre:bg-neutral-border/30 prose-pre:border prose-pre:border-neutral-border prose-blockquote:border-neutral-border prose-blockquote:text-neutral-text-secondary prose-ul:text-neutral-text-secondary prose-ol:text-neutral-text-secondary prose-li:marker:text-neutral-text-tertiary prose-img:rounded-lg prose-img:w-full prose-img:h-auto prose-img:max-h-[28rem] prose-img:object-contain prose-img:bg-neutral-border/40 prose-img:border prose-img:border-neutral-border prose-img:p-3 prose-img:mx-auto"
+            dangerouslySetInnerHTML={{ __html: renderMarkdown(post.content) }}
           />
         </article>
 

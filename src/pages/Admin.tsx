@@ -211,8 +211,15 @@ export default function Admin() {
             </div>
 
             <div>
-              <label className="block font-mono text-xs text-neutral-text-secondary uppercase tracking-wider mb-2">Content * (HTML supported)</label>
-              <textarea value={formData.content} onChange={(e) => setFormData({ ...formData, content: e.target.value })} rows={15} className="w-full px-4 py-3 bg-neutral-border/30 border border-neutral-border rounded-lg focus:outline-none focus:border-neutral-text-secondary transition-colors resize-y font-mono text-sm" required />
+              <label className="block font-mono text-xs text-neutral-text-secondary uppercase tracking-wider mb-2">Content * (Markdown)</label>
+              <textarea
+                value={formData.content}
+                onChange={(e) => setFormData({ ...formData, content: e.target.value })}
+                rows={15}
+                className="w-full px-4 py-3 bg-neutral-border/30 border border-neutral-border rounded-lg focus:outline-none focus:border-neutral-text-secondary transition-colors resize-y font-mono text-sm"
+                placeholder="Use Markdown: # headers, **bold**, _italics_, lists, `code`, [links](url), ![img](url)"
+                required
+              />
             </div>
 
             <div className="flex items-center gap-3">

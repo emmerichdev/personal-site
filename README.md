@@ -67,3 +67,24 @@ export default tseslint.config([
   },
 ])
 ```
+
+## Local development without auth
+
+The repository now includes a lightweight mock API so you can work on the UI with `npm run dev` only—no Cloudflare Pages runtime or GitHub authentication required.
+
+1. Install dependencies: `npm install`
+2. Create a `.env.local` file at the project root with:
+
+   ```
+   VITE_LOCAL_MODE=true
+   ```
+
+3. Start the dev server: `npm run dev`
+
+When `VITE_LOCAL_MODE` is enabled the app:
+
+- Uses in-browser storage for blog post CRUD operations (seeded with sample posts)
+- Treats the `/admin` route as authenticated
+- Skips calls to the server-side `/api/auth/*` endpoints
+
+Remove the environment variable (or set it to `false`) whenever you need to hit the real API and authentication flow again.

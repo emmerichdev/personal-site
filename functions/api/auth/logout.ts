@@ -1,6 +1,6 @@
 import { Env } from '../../shared';
 
-export const onRequestGet: PagesFunction<Env> = async (context) => {
+export const onRequestGet: PagesFunction<Env> = async () => {
   const headers = new Headers();
 
   const cookieOptions = 'Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT; HttpOnly; Secure; SameSite=Lax';

@@ -106,8 +106,8 @@ export async function updatePost({ slug, updates }: UpdatePostInput): Promise<vo
   const updatedPost: Post = {
     ...posts[index],
     ...updates,
-    excerpt: updates.excerpt ?? posts[index].excerpt,
-    cover_image: updates.cover_image ?? posts[index].cover_image,
+    excerpt: updates.excerpt === undefined ? posts[index].excerpt : updates.excerpt,
+    cover_image: updates.cover_image === undefined ? posts[index].cover_image : updates.cover_image,
     updated_at: timestamp,
   };
 

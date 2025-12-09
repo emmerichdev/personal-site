@@ -6,7 +6,7 @@ import type {
   UpdatePostInput,
 } from '../types';
 
-const STORAGE_KEY = 'personal-site:mock-posts';
+export const MOCK_POSTS_STORAGE_KEY = 'personal-site:mock-posts';
 
 let memoryStore: Post[] | null = null;
 
@@ -15,7 +15,7 @@ const hasStorage = typeof window !== 'undefined' && 'localStorage' in window;
 function loadFromStorage(): Post[] | null {
   if (!hasStorage) return null;
   try {
-    const raw = window.localStorage.getItem(STORAGE_KEY);
+    const raw = window.localStorage.getItem(MOCK_POSTS_STORAGE_KEY);
     return raw ? (JSON.parse(raw) as Post[]) : null;
   } catch {
     return null;
@@ -26,7 +26,7 @@ function persist(posts: Post[]): void {
   memoryStore = [...posts];
   if (!hasStorage) return;
   try {
-    window.localStorage.setItem(STORAGE_KEY, JSON.stringify(posts));
+    window.localStorage.setItem(MOCK_POSTS_STORAGE_KEY, JSON.stringify(posts));
   } catch {
     // ignore storage write errors
   }

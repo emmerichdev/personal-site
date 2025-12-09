@@ -4,6 +4,7 @@ import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { fetchPosts, fetchPost, createPost, updatePost, deletePost, uploadFile } from '../lib/api';
 import { generateSlug } from '../lib/utils';
 import { isLocalMode } from '../lib/config';
+import { MOCK_POSTS_STORAGE_KEY } from '../lib/mockApi';
 
 type View = 'list' | 'edit' | 'create';
 
@@ -148,7 +149,10 @@ export default function Admin() {
 
   async function handleLogout() {
     queryClient.clear();
-    localStorage.removeItem('blog-cache');
+    const cacheKeys = ['blog-cache', MOCK_POSTS_STORAGE_KEY];
+    for (const key of cacheKeys) {
+      localStorage.removeItem(key);
+    }
     if (isLocalMode) {
       window.location.reload();
       return;

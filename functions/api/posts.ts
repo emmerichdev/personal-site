@@ -39,9 +39,8 @@ export const onRequestGet: PagesFunction<Env> = async (context) => {
     const etag = await createEtag(results);
     const lastModified = results[0]?.updated_at ? new Date(results[0].updated_at).toUTCString() : undefined;
     const caching = cacheHeaders({
-      browserTtl: 120,
-      cdnTtl: 600,
-      staleWhileRevalidateSeconds: 86400,
+      browserTtl: 0,
+      cdnTtl: 0,
       etag,
       lastModified,
     });

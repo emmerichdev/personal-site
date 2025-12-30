@@ -17,19 +17,19 @@ export default function AboutSection() {
           <div className="group">
             <div className="flex flex-col sm:flex-row sm:items-baseline justify-between mb-2">
               <h3 className="text-base font-medium text-neutral-text group-hover:text-white transition-colors">
-                PCM Tech Officer
+                Software Engineer
               </h3>
               <a
-                href="https://www.instagram.com/clcboardsnbytes/"
+                href="https://hyfable.com/"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="font-mono text-xs text-neutral-text-secondary hover:text-emerald-400 transition-colors"
               >
-                @ Boards and Bytes ↗
+                @ Hyfable ↗
               </a>
             </div>
             <p className="text-sm text-neutral-text-secondary leading-relaxed max-w-md group-hover:text-neutral-text transition-colors duration-300">
-              Managing IT infrastructure and computer maintenance for the organization.
+              Building and managing backend infrastructure for the network, as well as developing mods and plugins for the game <a href="https://hytale.com/" target="_blank" rel="noopener noreferrer" className="underline hover:text-emerald-400 transition-colors">Hytale</a>.
             </p>
           </div>
 

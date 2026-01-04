@@ -20,12 +20,12 @@ export default function AboutSection() {
                 Software Engineer
               </h3>
               <a
-                href="https://hyfable.com/"
+                href="https://hylandia.net/"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="font-mono text-xs text-neutral-text-secondary hover:text-emerald-400 transition-colors"
               >
-                @ Hyfable ↗
+                @ Hylandia ↗
               </a>
             </div>
             <p className="text-sm text-neutral-text-secondary leading-relaxed max-w-md group-hover:text-neutral-text transition-colors duration-300">

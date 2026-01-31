@@ -20,12 +20,12 @@ export default function AboutSection() {
                 Software Engineer
               </h3>
               <a
-                href="https://hylandia.net/"
+                href="https://solarfall.net/"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="font-mono text-xs text-neutral-text-secondary hover:text-emerald-400 transition-colors"
               >
-                @ Hylandia ↗
+                @ Solarion Interactive ↗
               </a>
             </div>
             <p className="text-sm text-neutral-text-secondary leading-relaxed max-w-md group-hover:text-neutral-text transition-colors duration-300">

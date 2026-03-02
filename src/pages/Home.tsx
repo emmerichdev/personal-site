@@ -29,13 +29,6 @@ export default function Home() {
             </p>
           </div>
 
-          <div className="font-mono text-xs text-neutral-text-secondary uppercase tracking-wider space-y-1 border-l border-neutral-border pl-4">
-            <div className="hover:text-neutral-text transition-colors">Based in Illinois, US</div>
-            <div className="hover:text-neutral-text transition-colors">Undergraduate @ CLC</div>
-            <div>
-              Status: <span className="text-emerald-400 animate-pulse">●</span> Active
-            </div>
-          </div>
         </header>
 
         <AboutSection />
